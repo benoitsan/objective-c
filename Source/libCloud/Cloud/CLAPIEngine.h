@@ -66,6 +66,7 @@ extern NSString *const CLAPIEnginePrivacyOptionPublic;
 - (NSString *)getAccountInformationWithUserInfo:(id)userInfo;
 - (NSString *)getItemInformation:(CLWebItem *)item userInfo:(id)userInfo;
 - (NSString *)getItemInformationAtURL:(NSURL *)itemURL userInfo:(id)userInfo;
+- (NSString *)bookmarkLinksWithURLs:(NSArray*)URLs userInfo:(id)userInfo;
 - (NSString *)bookmarkLinkWithURL:(NSURL *)URL name:(NSString *)name userInfo:(id)userInfo;
 - (NSString *)uploadFileWithName:(NSString *)fileName fileData:(NSData *)fileData userInfo:(id)userInfo;
 - (NSString *)bookmarkLinkWithURL:(NSURL *)URL name:(NSString *)name options:(NSDictionary *)options userInfo:(id)userInfo;

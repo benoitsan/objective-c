@@ -198,6 +198,11 @@ NSString *const CLAPIEnginePrivacyOptionPublic = @"public";
 	return [self _createAndStartConnectionForTransaction:transaction];
 }
 
+
+- (NSString *)bookmarkLinksWithURLs:(NSArray*)URLs userInfo:(id)userInfo {
+    return nil;
+}
+
 - (NSString *)bookmarkLinkWithURL:(NSURL *)URL name:(NSString *)name userInfo:(id)userInfo
 {
     return [self bookmarkLinkWithURL:URL name:name options:nil userInfo:userInfo];
