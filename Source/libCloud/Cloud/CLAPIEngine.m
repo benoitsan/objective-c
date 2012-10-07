@@ -200,7 +200,27 @@ NSString *const CLAPIEnginePrivacyOptionPublic = @"public";
 
 
 - (NSString *)bookmarkLinksWithURLs:(NSArray*)URLs userInfo:(id)userInfo {
-    return nil;
+	if (![self isReady] || [URLs count] == 0)
+		return nil;
+	
+	CLAPITransaction *transaction = [CLAPITransaction transaction];
+	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/items", _CLAPIEngineBaseURL]]];
+	[request setHTTPMethod:@"POST"];
+	[request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+	[request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+	
+	NSData *bodyData = [CLAPISerializer bookmarkWithURLs:URLs];
+	if (bodyData == nil)
+		return nil;
+	
+	[request setHTTPBody:bodyData];
+	
+	transaction.request = request;
+	transaction.identifier = [NSString uniqueString];
+	transaction.requestType = CLAPIRequestTypeLinkBookmarks;
+	transaction.userInfo = userInfo;
+	
+	return [self _createAndStartConnectionForTransaction:transaction];
 }
 
 - (NSString *)bookmarkLinkWithURL:(NSURL *)URL name:(NSString *)name userInfo:(id)userInfo
@@ -740,6 +760,13 @@ NSString *const CLAPIEnginePrivacyOptionPublic = @"public";
 				[self.delegate linkBookmarkDidSucceedWithResultingItem:resultItem
                                                   connectionIdentifier:transaction.identifier
                                                               userInfo:transaction.userInfo];
+			break;
+		}
+            
+        case CLAPIRequestTypeLinkBookmarks: { // BENOIT
+			NSArray *itemArray = [CLAPIDeserializer webItemArrayWithJSONArrayData:transaction.receivedData];
+			if ([self.delegate respondsToSelector:@selector(linkBookmarksDidSucceedWithResultingItems:connectionIdentifier:userInfo:)])
+				[self.delegate linkBookmarksDidSucceedWithResultingItems:itemArray connectionIdentifier:transaction.identifier userInfo:transaction.userInfo];
 			break;
 		}
             

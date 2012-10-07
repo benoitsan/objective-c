@@ -105,6 +105,22 @@
 	return [self JSONDataFromDictionary:dict];
 }
 
++ (NSData *)bookmarkWithURLs:(NSArray*)URLs {
+	if ([URLs count]==0)
+		return nil;
+	
+    NSMutableArray* mutableArray = [[NSMutableArray alloc] init];
+    
+    for (NSURL* URL in URLs) {
+        NSDictionary *itemDic = [NSDictionary dictionaryWithObjectsAndKeys:[URL absoluteString], @"name", [URL absoluteString], @"redirect_url", nil];
+        [mutableArray addObject:itemDic];
+    }
+    
+    NSDictionary* itemsDic = [NSDictionary dictionaryWithObject:mutableArray forKey:@"items"];    
+    
+	return [self JSONDataFromDictionary:itemsDic];
+}
+
 + (NSData *)receiptWithBase64String:(NSString *)base64String
 {
     NSDictionary *receipt = [NSDictionary dictionaryWithObject:base64String

@@ -19,6 +19,7 @@
 + (NSData *)itemWithName:(NSString *)newName;
 + (NSData *)itemWithPrivate:(BOOL)isPrivate;
 + (NSData *)itemForRestore;
++ (NSData *)bookmarkWithURLs:(NSArray*)URLs;
 + (NSData *)bookmarkWithURL:(NSURL *)URL name:(NSString *)name;
 + (NSData *)bookmarkWithURL:(NSURL *)URL name:(NSString *)name private:(BOOL)private;
 + (NSData *)receiptWithBase64String:(NSString *)base64String;

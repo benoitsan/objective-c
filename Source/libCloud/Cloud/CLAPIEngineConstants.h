@@ -16,6 +16,7 @@ enum {
 	CLAPIRequestTypeItemDeletion,
     CLAPIRequestTypeItemRestoration,
 	CLAPIRequestTypeGetItemList,
+    CLAPIRequestTypeLinkBookmarks,
 	CLAPIRequestTypeLinkBookmark,
 	CLAPIRequestTypeCreateAccount,
 	CLAPIRequestTypeGetAccountInformation,
